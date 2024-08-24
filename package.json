@@ -1,9 +1,7 @@
 {
   "name": "@eliyya/ghost-cli",
-  "version": "1.0.0",
-  "bin": {
-    "ghost": "./cli/cli.mjs"
-  },
+  "version": "1.0.1",
+  "bin": "./cli/cli.js",
   "scripts": {
     "build": "tsc"
   },

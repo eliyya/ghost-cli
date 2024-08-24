@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "lib": ["esnext"],
+        "skipLibCheck": true,
+        "strict": true,
+        "module": "esnext",
+        "isolatedModules": true,
+        "incremental": true,
+        "target": "ESNext",
+        "moduleResolution": "node",
+        "rootDir": "./src",
+        "outDir": "./cli",
+    },
+    "exclude": ["node_modules"]
+}
