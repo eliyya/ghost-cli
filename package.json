@@ -1,6 +1,6 @@
 {
   "name": "@eliyya/ghost-cli",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "bin": "./cli/cli.js",
   "type": "module",
   "scripts": {
@@ -11,14 +11,19 @@
   "license": "MIT",
   "description": "",
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/node": "^22.5.0",
     "typescript": "^5.5.4"
   },
   "dependencies": {
     "@eliyya/inquirer-fs-selector": "^0.3.2",
     "@inquirer/prompts": "^5.3.8",
+    "@prisma/client": "^5.18.0",
+    "@sapphire/snowflake": "^3.5.3",
+    "bcrypt": "^5.1.1",
     "chalk": "^5.3.0",
     "commander": "^12.1.0",
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "prisma": "^5.18.0"
   }
 }
