@@ -24,6 +24,7 @@ const clearLastLine = () => {
     process.stdout.clearLine(1) // from cursor to end
 }
 log('Installing Ghost app...')
+log('')
 log('Checking platform...')
 if (!['win32', 'linux'].includes(process.platform)) {
     log(
@@ -36,6 +37,7 @@ if (!['win32', 'linux'].includes(process.platform)) {
 const platform = process.platform === 'win32' ? 'Windows' : 'Linux'
 clearLastLine()
 log(`Checking platform: ${chalk.cyan(`${platform} detected`)}`)
+log('')
 log('Checking system requirements...')
 log('- Checking Node.js version...')
 const [major, minor] = process.versions.node.split('.').map(Number)
@@ -89,6 +91,7 @@ async function getInstalationPath(defaultPathToInstall: string) {
     })
     return await getInstalationPath(join(filePath, dirnameApp))
 }
+log('')
 const pathToInstall = await getInstalationPath(
     platform == 'Windows'
         ? join(process.env.ProgramFiles as string, dirnameApp)
@@ -122,8 +125,10 @@ async function download() {
     }
 }
 await download()
+log('')
+log('')
 log(chalk.cyan('Ghost app downloaded successfully'))
-
+log('')
 log('Configuring Ghost app...')
 const envText = await readFile(join(pathToInstall, 'example.env'), 'utf-8')
 const env = parse(envText) as {
@@ -149,7 +154,7 @@ await writeFile(
 )
 await writeFile(
     import.meta.resolve('../.env').replace('file:///', ''),
-    `DB_PATH="${env.DB_PATH}"\nGHOST_APP_DATA="${env.GHOST_APP_DATA}"`,
+    `DB_PATH="${env.DB_PATH}"\nGHOST_APP_DATA="${env.GHOST_APP_DATA}"\nGHOST_PROGRAM_FILES="${pathToInstall}"`,
 )
 clearLastLine()
 log('Configuring Ghost app...')
@@ -189,6 +194,8 @@ try {
 }
 
 // install dependencies
+log('')
+log('')
 log('Installing dependencies...')
 execSync(`npm i`, {
     stdio: 'inherit',
@@ -196,8 +203,11 @@ execSync(`npm i`, {
 })
 clearLastLine()
 log(chalk.cyan('Dependencies installed successfully'))
+log('')
+log('')
 log('Ghost app installed successfully')
 
+log('')
 log('Building GhostApp...')
 execSync(`npx prisma migrate deploy`, {
     stdio: 'inherit',
@@ -213,6 +223,8 @@ execSync(`npm run build`, {
 })
 clearLastLine()
 log(chalk.cyan('GhostApp built successfully'))
+log('')
+log('')
 const admin = await confirm({
     message: `Can you create an admin user for GhostApp?`,
 })
@@ -231,6 +243,7 @@ if (admin) {
         cwd: import.meta.resolve('..').replace('file:///', ''),
         stdio: 'inherit',
     })
+    log('')
     log('Creating admin user...')
     await import('@prisma/client').then(async ({ PrismaClient }) => {
         const prisma = new PrismaClient({
@@ -318,4 +331,6 @@ function validatePassword(password: string) {
         return 'La contrasenia solo puede tener los siguientes caracteres especiales: !?_-=+*&%$#'
     return true
 }
-log(chalk.green('GhostApp is ready to use'))
+log('')
+log('')
+log(chalk.green('GhostApp is ready to use. Run `ghost start` to start the app'))
