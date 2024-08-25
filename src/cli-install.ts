@@ -7,7 +7,6 @@ import fileSelector from '@eliyya/inquirer-fs-selector'
 import chalk from 'chalk'
 import { parse } from 'dotenv'
 import { cp, readFile, rm, writeFile } from 'node:fs/promises'
-import { PrismaClient } from '@prisma/client'
 import { Snowflake } from '@sapphire/snowflake'
 import { hash } from 'bcrypt'
 const snowflake = new Snowflake(
@@ -147,6 +146,10 @@ await writeFile(
     Object.entries(env)
         .map(([key, value]) => `${key}="${value}"`)
         .join('\n'),
+)
+await writeFile(
+    import.meta.resolve('../.env').replace('file:///', ''),
+    `DB_PATH="${env.DB_PATH}"\nGHOST_APP_DATA="${env.GHOST_APP_DATA}"`,
 )
 clearLastLine()
 log('Configuring Ghost app...')

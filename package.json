@@ -1,6 +1,6 @@
 {
   "name": "@eliyya/ghost-cli",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "bin": "./cli/cli.js",
   "type": "module",
   "scripts": {
